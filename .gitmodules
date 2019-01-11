@@ -1,0 +1,3 @@
+[submodule "ModernLauncher/KMCCC"]
+	path = ModernLauncher/KMCCC
+	url = git@git.cstu.gq:MCQ/KMCCC.git

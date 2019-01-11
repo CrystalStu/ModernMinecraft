@@ -1,0 +1,25 @@
+
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModernLauncher", "ModernLauncher\ModernLauncher.csproj", "{DA3E5DF8-599D-499F-BB07-CDDF01C2A00E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KMCCC.Pro", "ModernLauncher\KMCCC\KMCCC.Pro\KMCCC.Pro.csproj", "{4270E717-21EE-46CF-A55A-B8AF33BBCB54}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "KMCCC.Shared", "ModernLauncher\KMCCC\KMCCC.Shared\KMCCC.Shared.shproj", "{564F0AF1-50E3-4AB4-A3B1-9A73882C3F3B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x86 = Debug|x86
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DA3E5DF8-599D-499F-BB07-CDDF01C2A00E}.Debug|x86.ActiveCfg = Debug|x86
+		{DA3E5DF8-599D-499F-BB07-CDDF01C2A00E}.Debug|x86.Build.0 = Debug|x86
+		{DA3E5DF8-599D-499F-BB07-CDDF01C2A00E}.Release|x86.ActiveCfg = Release|x86
+		{DA3E5DF8-599D-499F-BB07-CDDF01C2A00E}.Release|x86.Build.0 = Release|x86
+		{4270E717-21EE-46CF-A55A-B8AF33BBCB54}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{4270E717-21EE-46CF-A55A-B8AF33BBCB54}.Debug|x86.Build.0 = Debug|Any CPU
+		{4270E717-21EE-46CF-A55A-B8AF33BBCB54}.Release|x86.ActiveCfg = Release|Any CPU
+		{4270E717-21EE-46CF-A55A-B8AF33BBCB54}.Release|x86.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
