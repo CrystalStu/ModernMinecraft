@@ -1,35 +1,44 @@
-﻿using System;
+﻿#undef REMOTE_ENABLE
+#undef REMOTE_UPDATE
+#define REMOTE_NOTICE
+
+using System;
 using System.Diagnostics;
 using System.Reflection;
 using System.Threading;
 using Gtk;
 using ModernLauncher;
 
-public partial class MainWindow : Gtk.Window
+public partial class MainWindow : Window
 {
-    protected const bool RemoteEnable = false;
-    protected const bool RemoteUpdate = false;
-    protected const bool RemoteNotice = true;
     protected const string RemoteUrl = "https://vl.cstu.gq/support/launcher";
     protected const string Website = "https://vl.cstu.gq";
     protected const string Register = "https://login2.nide8.com:233/28f8f58a8a7f11e88feb525400b59b6a/register";
 
-    public MainWindow() : base(Gtk.WindowType.Toplevel)
+    public MainWindow() : base(WindowType.Toplevel)
     {
         Build();
         ApplyStyles();
-        if(RemoteUpdate) CheckGit();
-        if(RemoteEnable) CheckEnable();
-        if(RemoteUpdate) LauncherUpdate();
-        if(RemoteNotice) labelNotice.Text = Web.DownloadText(RemoteUrl + "/motd.txt");
-        else
-        {
-            labelNoticeIndicator.Visible = false;
-            labelNotice.Visible = false;
-        }
+#if REMOTE_UPDATE
+        CheckGit();
+#endif
+#if REMOTE_ENABLE
+        CheckEnable();
+#endif
+#if REMOTE_UPDATE
+        LauncherUpdate();
+#endif
+#if REMOTE_NOTICE
+        labelNotice.Text = Web.DownloadText(RemoteUrl + "/motd.txt");
+#else
+        labelNoticeIndicator.Visible = false;
+        labelNotice.Visible = false;
+#endif
         if (Website.Length == 0) buttonWebsite.Visible = false;
         labelStatus.Text = "Done.";
     }
+
+    #region Frontend Handler
 
     protected void ApplyStyles()
     {
@@ -53,7 +62,9 @@ public partial class MainWindow : Gtk.Window
         widget.ModifyFg(StateType.Normal, new Gdk.Color(255, 255, 255));
     }
 
-    #region Component Handler
+    #endregion
+
+    #region Event Handler
 
     protected void OnDeleteEvent(object sender, DeleteEventArgs a)
     {
@@ -77,11 +88,13 @@ public partial class MainWindow : Gtk.Window
         if (Thread.CurrentThread.CurrentUICulture.Name.Contains("ja")) Launch.ChangeOption(Environment.CurrentDirectory, 1);
         else if (Thread.CurrentThread.CurrentUICulture.Name.Contains("zh")) Launch.ChangeOption(Environment.CurrentDirectory, 2);
         else Launch.ChangeOption(Environment.CurrentDirectory, 0);
-        Launch.VLW(this, entryUsername.Text, entryPassword.Text, spinbuttonMemory.Digits.ToString(), Environment.CurrentDirectory, checkbuttonFullScreen.Active);
+        Launch.VLW(this, entryUsername.Text, entryPassword.Text, ((int)spinbuttonMemory.Value).ToString(), Environment.CurrentDirectory, checkbuttonFullScreen.Active);
         Sortie();
     }
 
     #endregion
+
+    #region Backend Handler
 
     protected void LauncherUpdate()
     {
@@ -99,7 +112,8 @@ public partial class MainWindow : Gtk.Window
 
     protected void CheckGit()
     {
-        if(!Utility.CheckProcessSuccess("git", "--version")) {
+        if (!Utility.CheckProcessSuccess("git", "--version"))
+        {
             MessageDialog messageDialog = new MessageDialog(this, DialogFlags.Modal, MessageType.Error, ButtonsType.Ok, "The program detected your git with installation was not supported.")
             {
                 Title = "Missed Component"
@@ -140,4 +154,6 @@ public partial class MainWindow : Gtk.Window
         CleanUpdateLog();
         Environment.Exit(0);
     }
+
+    #endregion
 }

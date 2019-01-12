@@ -1,4 +1,6 @@
-﻿using System;
+﻿#define ENABLE_TONGYI_AUTHENTICATION
+
+using System;
 using System.IO;
 using System.Threading;
 using Gtk;
@@ -9,12 +11,17 @@ namespace ModernLauncher
 {
     public static class Launch
     {
+        const string ServerTongyiStr = "28f8f58a8a7f11e88feb525400b59b6a";
+        const string VersionName = "1.13";
+        const string ServerIP = "";
+        const ushort ServerPort = 25565;
+
         public static void ChangeOption(string rootPath, int lang)
         {
-            if (!File.Exists(rootPath + "/.minecraft/versions/1.13/options.txt.tmpl")) return;
-            if (!File.Exists(rootPath + "/.minecraft/versions/1.13/options.txt"))
+            if (!File.Exists(rootPath + "/.minecraft/versions/" + VersionName + "/options.txt.tmpl")) return;
+            if (!File.Exists(rootPath + "/.minecraft/versions/" + VersionName + "/options.txt"))
             {
-                Utility.MoveFile(rootPath + "/.minecraft/versions/1.13/options.txt.tmpl", rootPath + "/.minecraft/versions/1.13/options.txt");
+                Utility.MoveFile(rootPath + "/.minecraft/versions/" + VersionName + "/options.txt.tmpl", rootPath + "/.minecraft/versions/" + VersionName + "/options.txt");
             }
             string langStr;
             switch (lang)
@@ -29,7 +36,7 @@ namespace ModernLauncher
                     langStr = "zh_cn";
                     break;
             }
-            string[] properties = File.ReadAllLines(rootPath + "/.minecraft/versions/1.13/options.txt");
+            string[] properties = File.ReadAllLines(rootPath + "/.minecraft/versions/" + VersionName + "/options.txt");
             for (int t = 0; t < properties.Length; t++)
             {
                 if (properties[t].Split(':')[0] == "gamma")
@@ -43,35 +50,31 @@ namespace ModernLauncher
                     continue;
                 }
             }
-            File.WriteAllLines(rootPath + "/.minecraft/versions/1.13/options.txt", properties);
+            File.WriteAllLines(rootPath + "/.minecraft/versions/" + VersionName + "/options.txt", properties);
         }
 
         public static void VLW(Window window, string username, string password, string memory, string path, bool fullScreen)
         {
-            string serverStr = "28f8f58a8a7f11e88feb525400b59b6a";
-            // var versions = Program.Core.GetVersions().ToArray();
-            var core = LauncherCore.Create(new LauncherCoreCreationOption(
-                javaPath: "java"
-            ));
-            var ver = core.GetVersion("1.13");
+            LauncherCore core = LauncherCore.Create();
             var option = new LaunchOptions
             {
-                Version = ver,
+                Version = core.GetVersion(VersionName),
                 MaxMemory = Convert.ToInt32(memory),
-                AgentPath = "nide8auth.jar=" + serverStr,
-                // Authenticator = new OfflineAuthenticator(username),
-                Authenticator = new YggdrasilLogin(username, password, true, null, "https://auth2.nide8.com:233/" + serverStr + "/authserver"), // 伪正版启动，最后一个为是否twitch登录
-                Mode = LaunchMode.MCLauncher, //启动模式
-                // Server = new ServerInfo { Address = "ali.cge.hm", Port = 30033 },
-                /*
+                Mode = LaunchMode.MCLauncher,
                 Size = new WindowSize
                 {
-                    Height = 720,
-                    Width = 1280,
+                    Height = (ushort?)(Gdk.Screen.Default.Height / 2),
+                    Width = (ushort?)(Gdk.Screen.Default.Width / 2)
                 }
-                */
             };
             if (fullScreen) option.Size.FullScreen = true;
+#if ENABLE_TONGYI_AUTHENTICATION
+            option.AgentPath = "nide8auth.jar=" + ServerTongyiStr; // Chinese Third-party Authentication System: Minecraft 统一通行证
+            option.Authenticator = new YggdrasilLogin(username, password, true, null, "https://auth2.nide8.com:233/" + ServerTongyiStr + "/authserver");
+#else
+            option.Authenticator = new OfflineAuthenticator(username);
+#endif
+            if (ServerIP.Length != 0) option.Server = new ServerInfo { Address = ServerIP, Port = ServerPort };
             var result = core.Launch(option);
             if (!result.Success)
             {
