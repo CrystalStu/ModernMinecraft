@@ -8,6 +8,7 @@ namespace ModernMinecraftShared
     public class RepositoryEventArgs : EventArgs
     {
         private string status;
+        private string cmdLine;
         private StatusType type;
 
         public enum StatusType
@@ -16,15 +17,21 @@ namespace ModernMinecraftShared
             Error = 1
         }
 
-        public RepositoryEventArgs(string Status, StatusType Type)
+        public RepositoryEventArgs(string Status, string CmdLine, StatusType Type)
         {
             status = Status;
+            cmdLine = CmdLine;
             type = Type;
         }
 
         public string GetStatus()
         {
             return status;
+        }
+
+        public string GetCmdLine()
+        {
+            return cmdLine;
         }
 
         public StatusType GetStatusType()
@@ -65,12 +72,11 @@ namespace ModernMinecraftShared
                 Execute("pull origin master");
             }
 
-            public void Execute(string arguments)
+            public void Execute( string arguments)
             {
                 ProcessStartInfo processStartInfo = new ProcessStartInfo
                 {
                     FileName = "git",
-                    CreateNoWindow = true,
                     UseShellExecute = false,
                     WorkingDirectory = path,
                     Arguments = arguments,
@@ -79,14 +85,16 @@ namespace ModernMinecraftShared
                     RedirectStandardError = true
                 };
                 Process process = Process.Start(processStartInfo);
-                process.OutputDataReceived += delegate {
-                    OnDataArrived?.Invoke(new RepositoryEventArgs(process.StandardOutput.ReadLine(), RepositoryEventArgs.StatusType.Normal));
-                };
-                process.ErrorDataReceived += delegate
+                process.OutputDataReceived += (object sender, DataReceivedEventArgs e) =>
                 {
-                    OnDataArrived?.Invoke(new RepositoryEventArgs(process.StandardError.ReadLine(), RepositoryEventArgs.StatusType.Error));
+                    if(e.Data != null) OnDataArrived?.Invoke(new RepositoryEventArgs(e.Data, arguments, RepositoryEventArgs.StatusType.Normal));
                 };
-                process.StandardInput.WriteLine("y\ny\ny\ny\ny\ny\ny\ny\ny\n");
+                process.BeginOutputReadLine();
+                process.ErrorDataReceived += (object sender, DataReceivedEventArgs e) =>
+                {
+                    if (e.Data != null) OnDataArrived?.Invoke(new RepositoryEventArgs(e.Data, arguments, RepositoryEventArgs.StatusType.Error));
+                };
+                process.BeginErrorReadLine();
                 process.WaitForExit();
             }
         }

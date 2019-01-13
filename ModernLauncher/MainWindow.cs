@@ -17,6 +17,8 @@ public partial class MainWindow : Window
     protected const string Website = "https://vl.cstu.gq";
     protected const string Register = "https://login2.nide8.com:233/28f8f58a8a7f11e88feb525400b59b6a/register";
 
+    protected System.Media.SoundPlayer backgroundMusicPlayer;
+
     public MainWindow() : base(WindowType.Toplevel)
     {
         Build();
@@ -32,6 +34,9 @@ public partial class MainWindow : Window
 #endif
 #if REMOTE_UPDATE
         ClientUpdate();
+#else
+        labelStatusIndicator.Visible = false;
+        labelStatus.Visible = false;
 #endif
 #if REMOTE_NOTICE
         labelNotice.Text = Web.DownloadText(RemoteUrl + "/motd.txt");
@@ -40,9 +45,10 @@ public partial class MainWindow : Window
         labelNotice.Visible = false;
 #endif
         if (Website.Length == 0) buttonWebsite.Visible = false;
+        PlayMisc();
     }
 
-    #region Frontend Handler
+#region Frontend Handler
 
     protected void ApplyStyles()
     {
@@ -61,20 +67,25 @@ public partial class MainWindow : Window
         });
     }
 
-    private void SetLabelForegroundToWhite(ref Label widget)
+    protected void SetLabelForegroundToWhite(ref Label widget)
     {
         widget.ModifyFg(StateType.Normal, new Gdk.Color(255, 255, 255));
     }
 
-    #endregion
+    protected void PlayMisc()
+    {
+        backgroundMusicPlayer = new System.Media.SoundPlayer(Assembly.GetExecutingAssembly().GetManifestResourceStream("ModernLauncher.Resources.BackgroundMisc"));
+        backgroundMusicPlayer.PlayLooping();
+    }
 
-    #region Event Handler
+#endregion
+
+#region Event Handler
 
     protected void OnDeleteEvent(object sender, DeleteEventArgs a)
     {
-        // Application.Quit();
-        // a.RetVal = true;
-        Sortie();
+        Application.Quit();
+        a.RetVal = true;
     }
 
     protected void OnButtonWebsiteClicked(object sender, EventArgs e)
@@ -96,9 +107,22 @@ public partial class MainWindow : Window
         Sortie();
     }
 
-    #endregion
+    protected void OnTogglebuttonMusicToggled(object sender, EventArgs e)
+    {
+        switch(togglebuttonMusic.Active)
+        {
+            case false:
+                backgroundMusicPlayer.Stop();
+                break;
+            case true:
+                backgroundMusicPlayer.PlayLooping();
+                break;
+        }
+    }
 
-    #region Backend Handler
+#endregion
+
+#region Backend Handler
 
     protected void LauncherUpdate()
     {
@@ -171,28 +195,14 @@ public partial class MainWindow : Window
         }
     }
 
-    protected void CleanUpdateLog()
-    {
-        try
-        {
-            Utility.DeleteFile(Environment.CurrentDirectory + "/update.log");
-            Utility.DeleteFile(Environment.CurrentDirectory + "/update.err");
-        }
-        catch
-        {
-            labelStatus.Text = "DEL_TRASH_ERROR";
-        }
-    }
-
     protected void Sortie()
     {
-        CleanUpdateLog();
-        Environment.Exit(0);
+        Application.Quit();
     }
 
-    #endregion
+#endregion
 
-    #region Outside Calling Handler
+#region Outside Calling Handler
 
     protected void SetBigStatus(string status)
     {
@@ -204,5 +214,5 @@ public partial class MainWindow : Window
         labelStatus.Text = status;
     }
 
-    #endregion
+#endregion
 }

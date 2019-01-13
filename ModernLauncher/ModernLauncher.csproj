@@ -63,6 +63,9 @@
     <EmbeddedResource Include="Resources\background.jpg">
       <LogicalName>ModernLauncher.Resources.Background</LogicalName>
     </EmbeddedResource>
+    <EmbeddedResource Include="Resources\misc.wav">
+      <LogicalName>ModernLauncher.Resources.BackgroundMisc</LogicalName>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="gtk-gui\generated.cs" />

@@ -17,6 +17,12 @@ public partial class MainWindow
 
 	private global::Gtk.CheckButton checkbuttonFullScreen;
 
+	private global::Gtk.HBox hboxBottomLeft;
+
+	private global::Gtk.Button button1;
+
+	private global::Gtk.ToggleButton togglebuttonMusic;
+
 	private global::Gtk.HBox hboxUserProperties;
 
 	private global::Gtk.Label labelUsername;
@@ -137,6 +143,41 @@ public partial class MainWindow
 		w6.XOptions = ((global::Gtk.AttachOptions)(4));
 		w6.YOptions = ((global::Gtk.AttachOptions)(4));
 		// Container child tableMainLayout.Gtk.Table+TableChild
+		this.hboxBottomLeft = new global::Gtk.HBox();
+		this.hboxBottomLeft.Name = "hboxBottomLeft";
+		this.hboxBottomLeft.Spacing = 6;
+		// Container child hboxBottomLeft.Gtk.Box+BoxChild
+		this.button1 = new global::Gtk.Button();
+		this.button1.CanFocus = true;
+		this.button1.Name = "button1";
+		this.button1.UseUnderline = true;
+		this.button1.Label = global::Mono.Unix.Catalog.GetString("About");
+		this.hboxBottomLeft.Add(this.button1);
+		global::Gtk.Box.BoxChild w7 = ((global::Gtk.Box.BoxChild)(this.hboxBottomLeft[this.button1]));
+		w7.Position = 0;
+		w7.Expand = false;
+		w7.Fill = false;
+		// Container child hboxBottomLeft.Gtk.Box+BoxChild
+		this.togglebuttonMusic = new global::Gtk.ToggleButton();
+		this.togglebuttonMusic.CanFocus = true;
+		this.togglebuttonMusic.Name = "togglebuttonMusic";
+		this.togglebuttonMusic.UseUnderline = true;
+		this.togglebuttonMusic.Active = true;
+		this.togglebuttonMusic.Label = global::Mono.Unix.Catalog.GetString("Music");
+		this.hboxBottomLeft.Add(this.togglebuttonMusic);
+		global::Gtk.Box.BoxChild w8 = ((global::Gtk.Box.BoxChild)(this.hboxBottomLeft[this.togglebuttonMusic]));
+		w8.Position = 1;
+		w8.Expand = false;
+		w8.Fill = false;
+		this.tableMainLayout.Add(this.hboxBottomLeft);
+		global::Gtk.Table.TableChild w9 = ((global::Gtk.Table.TableChild)(this.tableMainLayout[this.hboxBottomLeft]));
+		w9.TopAttach = ((uint)(7));
+		w9.BottomAttach = ((uint)(8));
+		w9.LeftAttach = ((uint)(1));
+		w9.RightAttach = ((uint)(2));
+		w9.XOptions = ((global::Gtk.AttachOptions)(4));
+		w9.YOptions = ((global::Gtk.AttachOptions)(4));
+		// Container child tableMainLayout.Gtk.Table+TableChild
 		this.hboxUserProperties = new global::Gtk.HBox();
 		this.hboxUserProperties.Name = "hboxUserProperties";
 		this.hboxUserProperties.Spacing = 6;
@@ -145,10 +186,10 @@ public partial class MainWindow
 		this.labelUsername.Name = "labelUsername";
 		this.labelUsername.LabelProp = global::Mono.Unix.Catalog.GetString("Username:");
 		this.hboxUserProperties.Add(this.labelUsername);
-		global::Gtk.Box.BoxChild w7 = ((global::Gtk.Box.BoxChild)(this.hboxUserProperties[this.labelUsername]));
-		w7.Position = 0;
-		w7.Expand = false;
-		w7.Fill = false;
+		global::Gtk.Box.BoxChild w10 = ((global::Gtk.Box.BoxChild)(this.hboxUserProperties[this.labelUsername]));
+		w10.Position = 0;
+		w10.Expand = false;
+		w10.Fill = false;
 		// Container child hboxUserProperties.Gtk.Box+BoxChild
 		this.entryUsername = new global::Gtk.Entry();
 		this.entryUsername.CanFocus = true;
@@ -156,23 +197,23 @@ public partial class MainWindow
 		this.entryUsername.IsEditable = true;
 		this.entryUsername.InvisibleChar = '•';
 		this.hboxUserProperties.Add(this.entryUsername);
-		global::Gtk.Box.BoxChild w8 = ((global::Gtk.Box.BoxChild)(this.hboxUserProperties[this.entryUsername]));
-		w8.Position = 1;
+		global::Gtk.Box.BoxChild w11 = ((global::Gtk.Box.BoxChild)(this.hboxUserProperties[this.entryUsername]));
+		w11.Position = 1;
 		// Container child hboxUserProperties.Gtk.Box+BoxChild
 		this.alignmentMiddleLeft = new global::Gtk.Alignment(0.5F, 0.5F, 1F, 1F);
 		this.alignmentMiddleLeft.Name = "alignmentMiddleLeft";
 		this.hboxUserProperties.Add(this.alignmentMiddleLeft);
-		global::Gtk.Box.BoxChild w9 = ((global::Gtk.Box.BoxChild)(this.hboxUserProperties[this.alignmentMiddleLeft]));
-		w9.Position = 2;
+		global::Gtk.Box.BoxChild w12 = ((global::Gtk.Box.BoxChild)(this.hboxUserProperties[this.alignmentMiddleLeft]));
+		w12.Position = 2;
 		// Container child hboxUserProperties.Gtk.Box+BoxChild
 		this.labelPassword = new global::Gtk.Label();
 		this.labelPassword.Name = "labelPassword";
 		this.labelPassword.LabelProp = global::Mono.Unix.Catalog.GetString("Password:");
 		this.hboxUserProperties.Add(this.labelPassword);
-		global::Gtk.Box.BoxChild w10 = ((global::Gtk.Box.BoxChild)(this.hboxUserProperties[this.labelPassword]));
-		w10.Position = 3;
-		w10.Expand = false;
-		w10.Fill = false;
+		global::Gtk.Box.BoxChild w13 = ((global::Gtk.Box.BoxChild)(this.hboxUserProperties[this.labelPassword]));
+		w13.Position = 3;
+		w13.Expand = false;
+		w13.Fill = false;
 		// Container child hboxUserProperties.Gtk.Box+BoxChild
 		this.entryPassword = new global::Gtk.Entry();
 		this.entryPassword.CanFocus = true;
@@ -181,23 +222,23 @@ public partial class MainWindow
 		this.entryPassword.Visibility = false;
 		this.entryPassword.InvisibleChar = '•';
 		this.hboxUserProperties.Add(this.entryPassword);
-		global::Gtk.Box.BoxChild w11 = ((global::Gtk.Box.BoxChild)(this.hboxUserProperties[this.entryPassword]));
-		w11.Position = 4;
+		global::Gtk.Box.BoxChild w14 = ((global::Gtk.Box.BoxChild)(this.hboxUserProperties[this.entryPassword]));
+		w14.Position = 4;
 		// Container child hboxUserProperties.Gtk.Box+BoxChild
 		this.alignmentMiddleMiddle = new global::Gtk.Alignment(0.5F, 0.5F, 1F, 1F);
 		this.alignmentMiddleMiddle.Name = "alignmentMiddleMiddle";
 		this.hboxUserProperties.Add(this.alignmentMiddleMiddle);
-		global::Gtk.Box.BoxChild w12 = ((global::Gtk.Box.BoxChild)(this.hboxUserProperties[this.alignmentMiddleMiddle]));
-		w12.Position = 5;
+		global::Gtk.Box.BoxChild w15 = ((global::Gtk.Box.BoxChild)(this.hboxUserProperties[this.alignmentMiddleMiddle]));
+		w15.Position = 5;
 		// Container child hboxUserProperties.Gtk.Box+BoxChild
 		this.labelMemory = new global::Gtk.Label();
 		this.labelMemory.Name = "labelMemory";
 		this.labelMemory.LabelProp = global::Mono.Unix.Catalog.GetString("Memory (MB):");
 		this.hboxUserProperties.Add(this.labelMemory);
-		global::Gtk.Box.BoxChild w13 = ((global::Gtk.Box.BoxChild)(this.hboxUserProperties[this.labelMemory]));
-		w13.Position = 6;
-		w13.Expand = false;
-		w13.Fill = false;
+		global::Gtk.Box.BoxChild w16 = ((global::Gtk.Box.BoxChild)(this.hboxUserProperties[this.labelMemory]));
+		w16.Position = 6;
+		w16.Expand = false;
+		w16.Fill = false;
 		// Container child hboxUserProperties.Gtk.Box+BoxChild
 		this.spinbuttonMemory = new global::Gtk.SpinButton(0D, 4096D, 64D);
 		this.spinbuttonMemory.CanFocus = true;
@@ -207,35 +248,36 @@ public partial class MainWindow
 		this.spinbuttonMemory.Numeric = true;
 		this.spinbuttonMemory.Value = 1024D;
 		this.hboxUserProperties.Add(this.spinbuttonMemory);
-		global::Gtk.Box.BoxChild w14 = ((global::Gtk.Box.BoxChild)(this.hboxUserProperties[this.spinbuttonMemory]));
-		w14.Position = 7;
-		w14.Expand = false;
-		w14.Fill = false;
+		global::Gtk.Box.BoxChild w17 = ((global::Gtk.Box.BoxChild)(this.hboxUserProperties[this.spinbuttonMemory]));
+		w17.Position = 7;
+		w17.Expand = false;
+		w17.Fill = false;
 		// Container child hboxUserProperties.Gtk.Box+BoxChild
 		this.alignmentMiddleRight = new global::Gtk.Alignment(0.5F, 0.5F, 1F, 1F);
 		this.alignmentMiddleRight.Name = "alignmentMiddleRight";
 		this.hboxUserProperties.Add(this.alignmentMiddleRight);
-		global::Gtk.Box.BoxChild w15 = ((global::Gtk.Box.BoxChild)(this.hboxUserProperties[this.alignmentMiddleRight]));
-		w15.Position = 8;
+		global::Gtk.Box.BoxChild w18 = ((global::Gtk.Box.BoxChild)(this.hboxUserProperties[this.alignmentMiddleRight]));
+		w18.Position = 8;
 		this.tableMainLayout.Add(this.hboxUserProperties);
-		global::Gtk.Table.TableChild w16 = ((global::Gtk.Table.TableChild)(this.tableMainLayout[this.hboxUserProperties]));
-		w16.TopAttach = ((uint)(1));
-		w16.BottomAttach = ((uint)(2));
-		w16.LeftAttach = ((uint)(2));
-		w16.RightAttach = ((uint)(3));
-		w16.XOptions = ((global::Gtk.AttachOptions)(4));
-		w16.YOptions = ((global::Gtk.AttachOptions)(4));
+		global::Gtk.Table.TableChild w19 = ((global::Gtk.Table.TableChild)(this.tableMainLayout[this.hboxUserProperties]));
+		w19.TopAttach = ((uint)(1));
+		w19.BottomAttach = ((uint)(2));
+		w19.LeftAttach = ((uint)(2));
+		w19.RightAttach = ((uint)(3));
+		w19.XOptions = ((global::Gtk.AttachOptions)(4));
+		w19.YOptions = ((global::Gtk.AttachOptions)(4));
 		// Container child tableMainLayout.Gtk.Table+TableChild
 		this.labelNotice = new global::Gtk.Label();
 		this.labelNotice.Name = "labelNotice";
 		this.labelNotice.LabelProp = global::Mono.Unix.Catalog.GetString("Loading...");
 		this.tableMainLayout.Add(this.labelNotice);
-		global::Gtk.Table.TableChild w17 = ((global::Gtk.Table.TableChild)(this.tableMainLayout[this.labelNotice]));
-		w17.TopAttach = ((uint)(4));
-		w17.BottomAttach = ((uint)(5));
-		w17.LeftAttach = ((uint)(2));
-		w17.RightAttach = ((uint)(3));
-		w17.YOptions = ((global::Gtk.AttachOptions)(4));
+		global::Gtk.Table.TableChild w20 = ((global::Gtk.Table.TableChild)(this.tableMainLayout[this.labelNotice]));
+		w20.TopAttach = ((uint)(4));
+		w20.BottomAttach = ((uint)(5));
+		w20.LeftAttach = ((uint)(2));
+		w20.RightAttach = ((uint)(3));
+		w20.XOptions = ((global::Gtk.AttachOptions)(4));
+		w20.YOptions = ((global::Gtk.AttachOptions)(4));
 		// Container child tableMainLayout.Gtk.Table+TableChild
 		this.labelNoticeIndicator = new global::Gtk.Label();
 		this.labelNoticeIndicator.Name = "labelNoticeIndicator";
@@ -243,56 +285,61 @@ public partial class MainWindow
 		this.labelNoticeIndicator.LabelProp = global::Mono.Unix.Catalog.GetString("Notice:");
 		this.labelNoticeIndicator.Justify = ((global::Gtk.Justification)(3));
 		this.tableMainLayout.Add(this.labelNoticeIndicator);
-		global::Gtk.Table.TableChild w18 = ((global::Gtk.Table.TableChild)(this.tableMainLayout[this.labelNoticeIndicator]));
-		w18.TopAttach = ((uint)(4));
-		w18.BottomAttach = ((uint)(5));
-		w18.LeftAttach = ((uint)(1));
-		w18.RightAttach = ((uint)(2));
-		w18.XOptions = ((global::Gtk.AttachOptions)(0));
-		w18.YOptions = ((global::Gtk.AttachOptions)(4));
+		global::Gtk.Table.TableChild w21 = ((global::Gtk.Table.TableChild)(this.tableMainLayout[this.labelNoticeIndicator]));
+		w21.TopAttach = ((uint)(4));
+		w21.BottomAttach = ((uint)(5));
+		w21.LeftAttach = ((uint)(1));
+		w21.RightAttach = ((uint)(2));
+		w21.XOptions = ((global::Gtk.AttachOptions)(0));
+		w21.YOptions = ((global::Gtk.AttachOptions)(4));
 		// Container child tableMainLayout.Gtk.Table+TableChild
 		this.labelStatus = new global::Gtk.Label();
 		this.labelStatus.Name = "labelStatus";
 		this.labelStatus.LabelProp = global::Mono.Unix.Catalog.GetString("Loading...");
 		this.tableMainLayout.Add(this.labelStatus);
-		global::Gtk.Table.TableChild w19 = ((global::Gtk.Table.TableChild)(this.tableMainLayout[this.labelStatus]));
-		w19.TopAttach = ((uint)(5));
-		w19.BottomAttach = ((uint)(6));
-		w19.LeftAttach = ((uint)(2));
-		w19.RightAttach = ((uint)(3));
-		w19.YOptions = ((global::Gtk.AttachOptions)(4));
+		global::Gtk.Table.TableChild w22 = ((global::Gtk.Table.TableChild)(this.tableMainLayout[this.labelStatus]));
+		w22.TopAttach = ((uint)(5));
+		w22.BottomAttach = ((uint)(6));
+		w22.LeftAttach = ((uint)(2));
+		w22.RightAttach = ((uint)(3));
+		w22.XOptions = ((global::Gtk.AttachOptions)(4));
+		w22.YOptions = ((global::Gtk.AttachOptions)(4));
 		// Container child tableMainLayout.Gtk.Table+TableChild
 		this.labelStatusIndicator = new global::Gtk.Label();
 		this.labelStatusIndicator.Name = "labelStatusIndicator";
 		this.labelStatusIndicator.LabelProp = global::Mono.Unix.Catalog.GetString("Status:");
 		this.labelStatusIndicator.Justify = ((global::Gtk.Justification)(1));
 		this.tableMainLayout.Add(this.labelStatusIndicator);
-		global::Gtk.Table.TableChild w20 = ((global::Gtk.Table.TableChild)(this.tableMainLayout[this.labelStatusIndicator]));
-		w20.TopAttach = ((uint)(5));
-		w20.BottomAttach = ((uint)(6));
-		w20.LeftAttach = ((uint)(1));
-		w20.RightAttach = ((uint)(2));
-		w20.XOptions = ((global::Gtk.AttachOptions)(0));
-		w20.YOptions = ((global::Gtk.AttachOptions)(4));
+		global::Gtk.Table.TableChild w23 = ((global::Gtk.Table.TableChild)(this.tableMainLayout[this.labelStatusIndicator]));
+		w23.TopAttach = ((uint)(5));
+		w23.BottomAttach = ((uint)(6));
+		w23.LeftAttach = ((uint)(1));
+		w23.RightAttach = ((uint)(2));
+		w23.XOptions = ((global::Gtk.AttachOptions)(0));
+		w23.YOptions = ((global::Gtk.AttachOptions)(4));
 		// Container child tableMainLayout.Gtk.Table+TableChild
 		this.labelWelcome = new global::Gtk.Label();
 		this.labelWelcome.Name = "labelWelcome";
 		this.labelWelcome.LabelProp = global::Mono.Unix.Catalog.GetString("Welcome!");
+		this.labelWelcome.Justify = ((global::Gtk.Justification)(2));
 		this.tableMainLayout.Add(this.labelWelcome);
-		global::Gtk.Table.TableChild w21 = ((global::Gtk.Table.TableChild)(this.tableMainLayout[this.labelWelcome]));
-		w21.TopAttach = ((uint)(3));
-		w21.BottomAttach = ((uint)(4));
-		w21.LeftAttach = ((uint)(2));
-		w21.RightAttach = ((uint)(3));
-		w21.YOptions = ((global::Gtk.AttachOptions)(4));
+		global::Gtk.Table.TableChild w24 = ((global::Gtk.Table.TableChild)(this.tableMainLayout[this.labelWelcome]));
+		w24.TopAttach = ((uint)(3));
+		w24.BottomAttach = ((uint)(4));
+		w24.LeftAttach = ((uint)(2));
+		w24.RightAttach = ((uint)(3));
+		w24.XOptions = ((global::Gtk.AttachOptions)(4));
+		w24.YOptions = ((global::Gtk.AttachOptions)(4));
 		this.Add(this.tableMainLayout);
 		if ((this.Child != null))
 		{
 			this.Child.ShowAll();
 		}
-		this.DefaultWidth = 915;
+		this.DefaultWidth = 1105;
 		this.DefaultHeight = 300;
 		this.Show();
+		this.DeleteEvent += new global::Gtk.DeleteEventHandler(this.OnDeleteEvent);
+		this.togglebuttonMusic.Toggled += new global::System.EventHandler(this.OnTogglebuttonMusicToggled);
 		this.buttonWebsite.Clicked += new global::System.EventHandler(this.OnButtonWebsiteClicked);
 		this.buttonRegister.Clicked += new global::System.EventHandler(this.OnButtonRegisterClicked);
 		this.buttonLaunch.Clicked += new global::System.EventHandler(this.OnButtonLaunchClicked);

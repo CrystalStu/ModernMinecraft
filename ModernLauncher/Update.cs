@@ -66,20 +66,24 @@ namespace ModernLauncher
                         Base = "Normal: ";
                         break;
                     case RepositoryEventArgs.StatusType.Error:
-                        Base = "Error: ";
+                        if (e.GetCmdLine().Contains("reset")) SetBigStatus("Error while resetting...");
+                        if (e.GetCmdLine().Contains("clean")) SetBigStatus("Error while cleaning...");
+                        if (e.GetCmdLine().Contains("fetch")) SetBigStatus("Processing fetching...");
+                        if (e.GetCmdLine().Contains("pull")) SetBigStatus("Processing pulling...");
+                        Base = "Advanced: ";
                         break;
                 }
                 SetStatus(Base + e.GetStatus());
             };
             Repository repository = new Repository(Environment.CurrentDirectory);
             SetBigStatus("Resetting...");
-            repository.Reset();
+            Task.Run(() => repository.Reset()).Wait();
             SetBigStatus("Cleaning...");
-            repository.Clean();
+            Task.Run(() => repository.Clean()).Wait();
             SetBigStatus("Fetching...");
-            repository.Fetch();
+            Task.Run(() => repository.Fetch()).Wait();
             SetBigStatus("Pulling...");
-            repository.Pull();
+            Task.Run(() => repository.Pull()).Wait();
             SetBigStatus("Done.");
         }
 
