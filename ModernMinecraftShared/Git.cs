@@ -1,0 +1,94 @@
+﻿using System;
+using System.Diagnostics;
+
+namespace ModernMinecraftShared
+{
+    public delegate void RepositoryEventHandler(RepositoryEventArgs e);
+
+    public class RepositoryEventArgs : EventArgs
+    {
+        private string status;
+        private StatusType type;
+
+        public enum StatusType
+        {
+            Normal = 0,
+            Error = 1
+        }
+
+        public RepositoryEventArgs(string Status, StatusType Type)
+        {
+            status = Status;
+            type = Type;
+        }
+
+        public string GetStatus()
+        {
+            return status;
+        }
+
+        public StatusType GetStatusType()
+        {
+            return type;
+        }
+    }
+
+    public class Git
+    {
+        public class Repository
+        {
+            public static event RepositoryEventHandler OnDataArrived;
+            protected string path;
+
+            public Repository(string Path)
+            {
+                path = Path;
+            }
+
+            public void Reset()
+            {
+                Execute("reset --hard");
+            }
+
+            public void Clean()
+            {
+                Execute("clean -df");
+            }
+
+            public void Fetch()
+            {
+                Execute("fetch origin master -f --progress");
+            }
+
+            public void Pull()
+            {
+                Execute("pull origin master");
+            }
+
+            public void Execute(string arguments)
+            {
+                ProcessStartInfo processStartInfo = new ProcessStartInfo
+                {
+                    FileName = "git",
+                    CreateNoWindow = true,
+                    UseShellExecute = false,
+                    WorkingDirectory = path,
+                    Arguments = arguments,
+                    RedirectStandardInput = true,
+                    RedirectStandardOutput = true,
+                    RedirectStandardError = true
+                };
+                Process process = Process.Start(processStartInfo);
+                process.OutputDataReceived += delegate {
+                    OnDataArrived?.Invoke(new RepositoryEventArgs(process.StandardOutput.ReadLine(), RepositoryEventArgs.StatusType.Normal));
+                };
+                process.ErrorDataReceived += delegate
+                {
+                    OnDataArrived?.Invoke(new RepositoryEventArgs(process.StandardError.ReadLine(), RepositoryEventArgs.StatusType.Error));
+                };
+                process.StandardInput.WriteLine("y\ny\ny\ny\ny\ny\ny\ny\ny\n");
+                process.WaitForExit();
+            }
+        }
+    }
+}
