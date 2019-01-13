@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KMCCC.Pro", "ModernLauncher
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "KMCCC.Shared", "ModernLauncher\KMCCC\KMCCC.Shared\KMCCC.Shared.shproj", "{564F0AF1-50E3-4AB4-A3B1-9A73882C3F3B}"
 EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "ModernMinecraftShared", "ModernMinecraftShared\ModernMinecraftShared.shproj", "{2DEA8834-AC97-4617-AE5F-BD620DE32B45}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x86 = Debug|x86

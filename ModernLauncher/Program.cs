@@ -5,11 +5,16 @@ namespace ModernLauncher
 {
     class MainClass
     {
+        public static MainWindow win;
         public static void Main(string[] args)
         {
-            if (System.Diagnostics.Process.GetCurrentProcess().WorkingSet64 < 1152) Environment.Exit(-1);
+            if (System.Diagnostics.Process.GetCurrentProcess().WorkingSet64 < 1152)
+            {
+                Console.WriteLine("[Launcher] Cannot start: Insufficient total memory.");
+                Environment.Exit(-1);
+            };
             Application.Init();
-            MainWindow win = new MainWindow
+            win = new MainWindow
             {
                 Icon = Gdk.Pixbuf.LoadFromResource("ModernLauncher.Resources.Icon")
             };

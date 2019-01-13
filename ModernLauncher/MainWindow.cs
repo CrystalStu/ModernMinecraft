@@ -1,5 +1,6 @@
-﻿#undef REMOTE_ENABLE
-#undef REMOTE_UPDATE
+﻿#define REMOTE_ENABLE
+#define REMOTE_UPDATE
+#undef REMOTE_LAUNCHER_UPDATE
 #define REMOTE_NOTICE
 
 using System;
@@ -8,6 +9,7 @@ using System.Reflection;
 using System.Threading;
 using Gtk;
 using ModernLauncher;
+using ModernMinecraftShared;
 
 public partial class MainWindow : Window
 {
@@ -25,8 +27,11 @@ public partial class MainWindow : Window
 #if REMOTE_ENABLE
         CheckEnable();
 #endif
-#if REMOTE_UPDATE
+#if REMOTE_LAUNCHER_UPDATE
         LauncherUpdate();
+#endif
+#if REMOTE_UPDATE
+        ClientUpdate();
 #endif
 #if REMOTE_NOTICE
         labelNotice.Text = Web.DownloadText(RemoteUrl + "/motd.txt");
@@ -35,7 +40,6 @@ public partial class MainWindow : Window
         labelNotice.Visible = false;
 #endif
         if (Website.Length == 0) buttonWebsite.Visible = false;
-        labelStatus.Text = "Done.";
     }
 
     #region Frontend Handler
@@ -100,15 +104,46 @@ public partial class MainWindow : Window
     {
         if (FileVersionInfo.GetVersionInfo(Assembly.GetExecutingAssembly().Location).ProductVersion != Web.DownloadText(RemoteUrl + "/ver.txt"))
         {
-            MessageDialog messageDialog = new MessageDialog(this, DialogFlags.Modal, MessageType.Info, ButtonsType.Ok, "This launcher is outdated, confirm to update it.\n\nDetails:\n" + Web.DownloadText("https://vl.cstu.gq/support/launcher/upd_log.txt"))
+            MessageDialog messageDialog = new MessageDialog(this, DialogFlags.Modal, MessageType.Warning, ButtonsType.Ok, "This launcher is outdated, confirm to update it.\n\nDetails:\n" + Web.DownloadText("https://vl.cstu.gq/support/launcher/upd_log.txt"))
             {
                 Title = "Update Required"
             };
             messageDialog.Run();
-            // To be implemented.
+            Update.Subete();
+            messageDialog = new MessageDialog(this, DialogFlags.Modal, MessageType.Info, ButtonsType.Ok, "Update completed! Please click the button to close this instance.")
+            {
+                Title = "Update Completed"
+            };
+            messageDialog.Run();
             Sortie();
         }
     }
+
+    protected void ClientUpdate()
+    {
+        Thread thread = new Thread(new ThreadStart(delegate
+        {
+            Update.OnUpdate += Update_OnUpdate;
+            Update.Subete();
+        }));
+        thread.Start();
+    }
+
+    void Update_OnUpdate(UpdateEventArgs e)
+    {
+        if(e.GetSet())
+        {
+            switch(e.GetArg()) {
+                case 0:
+                    labelWelcome.Text = e.GetCont();
+                    break;
+                case 1:
+                    labelStatus.Text = e.GetCont();
+                    break;
+            }
+        }
+    }
+
 
     protected void CheckGit()
     {
@@ -153,6 +188,20 @@ public partial class MainWindow : Window
     {
         CleanUpdateLog();
         Environment.Exit(0);
+    }
+
+    #endregion
+
+    #region Outside Calling Handler
+
+    protected void SetBigStatus(string status)
+    {
+        labelWelcome.Text = status;
+    }
+
+    protected void SetStatus(string status)
+    {
+        labelStatus.Text = status;
     }
 
     #endregion

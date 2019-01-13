@@ -6,6 +6,7 @@ using System.Threading;
 using Gtk;
 using KMCCC.Authentication;
 using KMCCC.Launcher;
+using ModernMinecraftShared;
 
 namespace ModernLauncher
 {
