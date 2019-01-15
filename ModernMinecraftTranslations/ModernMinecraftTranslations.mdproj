@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ItemType>TranslationProject</ItemType>
+    <ProjectGuid>{CC0B0EE1-78C4-4B7A-9A52-B3EFF2561BDC}</ProjectGuid>
+    <packageName>i8n1</packageName>
+    <outputType>RelativeToOutput</outputType>
+    <relPath>locale</relPath>
+    <translations>
+      <translations>
+        <Translation>
+          <isoCode>zh</isoCode>
+        </Translation>
+        <Translation>
+          <isoCode>ja</isoCode>
+        </Translation>
+        <Translation>
+          <isoCode>ja-JP</isoCode>
+        </Translation>
+      </translations>
+    </translations>
+    <projectInformations>
+      <projectInformations>
+        <TranslationProjectInformation>
+          <projectName>KMCCC.Pro</projectName>
+          <isIncluded>False</isIncluded>
+        </TranslationProjectInformation>
+        <TranslationProjectInformation>
+          <projectName>KMCCC.Shared</projectName>
+          <isIncluded>False</isIncluded>
+        </TranslationProjectInformation>
+        <TranslationProjectInformation>
+          <projectName>ModernMinecraftShared</projectName>
+          <isIncluded>False</isIncluded>
+        </TranslationProjectInformation>
+      </projectInformations>
+    </projectInformations>
+  </PropertyGroup>
+</Project>

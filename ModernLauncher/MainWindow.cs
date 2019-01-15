@@ -1,12 +1,13 @@
 ﻿#define REMOTE_ENABLE
-#define REMOTE_UPDATE
-#undef REMOTE_LAUNCHER_UPDATE
+#undef REMOTE_UPDATE
+#define REMOTE_LAUNCHER_UPDATE
 #define REMOTE_NOTICE
 
 using System;
 using System.Diagnostics;
 using System.Reflection;
 using System.Threading;
+using AutoUpdaterDotNET;
 using Gtk;
 using ModernLauncher;
 using ModernMinecraftShared;
@@ -21,6 +22,7 @@ public partial class MainWindow : Window
 
     public MainWindow() : base(WindowType.Toplevel)
     {
+        Mono.Unix.Catalog.Init("i8n1", "./locale");
         Build();
         ApplyStyles();
 #if REMOTE_UPDATE
@@ -126,21 +128,9 @@ public partial class MainWindow : Window
 
     protected void LauncherUpdate()
     {
-        if (FileVersionInfo.GetVersionInfo(Assembly.GetExecutingAssembly().Location).ProductVersion != Web.DownloadText(RemoteUrl + "/ver.txt"))
-        {
-            MessageDialog messageDialog = new MessageDialog(this, DialogFlags.Modal, MessageType.Warning, ButtonsType.Ok, "This launcher is outdated, confirm to update it.\n\nDetails:\n" + Web.DownloadText("https://vl.cstu.gq/support/launcher/upd_log.txt"))
-            {
-                Title = "Update Required"
-            };
-            messageDialog.Run();
-            Update.Subete();
-            messageDialog = new MessageDialog(this, DialogFlags.Modal, MessageType.Info, ButtonsType.Ok, "Update completed! Please click the button to close this instance.")
-            {
-                Title = "Update Completed"
-            };
-            messageDialog.Run();
-            Sortie();
-        }
+        AutoUpdater.Mandatory = true;
+        AutoUpdater.AppTitle = "Modern Launcher Update Window";
+        AutoUpdater.Start(RemoteUrl + "/universal/UpdateInfo.xml");
     }
 
     protected void ClientUpdate()

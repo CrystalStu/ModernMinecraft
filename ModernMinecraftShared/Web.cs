@@ -36,9 +36,16 @@ namespace ModernMinecraftShared
 
         public static string DownloadText(string url)
         {
-            WebClient client = new WebClient();
-            byte[] buffer = client.DownloadData(url);
-            return Encoding.ASCII.GetString(buffer);
+            try
+            {
+                WebClient client = new WebClient();
+                byte[] buffer = client.DownloadData(url);
+                return Encoding.ASCII.GetString(buffer);
+            }
+            catch
+            {
+                return string.Empty;
+            }
         }
     }
 }
