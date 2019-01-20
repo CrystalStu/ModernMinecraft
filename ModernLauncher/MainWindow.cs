@@ -1,6 +1,6 @@
 ﻿#define REMOTE_ENABLE
 #undef REMOTE_UPDATE
-#define REMOTE_LAUNCHER_UPDATE
+#undef REMOTE_LAUNCHER_UPDATE
 #define REMOTE_NOTICE
 
 using System;
@@ -22,8 +22,8 @@ public partial class MainWindow : Window
 
     public MainWindow() : base(WindowType.Toplevel)
     {
-        Mono.Unix.Catalog.Init("i8n1", "./locale");
         Build();
+        ApplyLanguage();
         ApplyStyles();
 #if REMOTE_UPDATE
         CheckGit();
@@ -52,8 +52,51 @@ public partial class MainWindow : Window
 
 #region Frontend Handler
 
+    protected void ApplyLanguage()
+    {
+        if(Thread.CurrentThread.CurrentUICulture.Name.Contains("ja"))
+        {
+            Title = "Modern ランチャー";
+            labelWelcome.Text = "こんにちは！";
+            labelMemory.Text = "メモリ制限 (MB)：";
+            labelNotice.Text = "読み込み中...";
+            labelNoticeIndicator.Text = "お知らせ：";
+            labelStatus.Text = "読み込み中...";
+            labelStatusIndicator.Text = "状態：";
+            labelPassword.Text = "パスワード：";
+            labelUsername.Text = "ＩＤ：";
+            labelFullscreen.Text = "全画面表示：";
+            labelVersion.Text = "バージョン：";
+            buttonAbout.Label = "について";
+            buttonLaunch.Label = "行きましょう";
+            buttonWebsite.Label = "サイト";
+            buttonRegister.Label = "登録";
+            togglebuttonMusic.Label = "音楽";
+        }
+        if (Thread.CurrentThread.CurrentUICulture.Name.Contains("zh"))
+        {
+            Title = "Modern 启动器";
+            labelWelcome.Text = "欢迎！";
+            labelMemory.Text = "内存限制 (MB)：";
+            labelNotice.Text = "加载中...";
+            labelNoticeIndicator.Text = "通知：";
+            labelStatus.Text = "加载中...";
+            labelStatusIndicator.Text = "状态：";
+            labelPassword.Text = "密码：";
+            labelUsername.Text = "ＩＤ：";
+            labelFullscreen.Text = "全屏显示：";
+            labelVersion.Text = "版本：";
+            buttonAbout.Label = "关于";
+            buttonLaunch.Label = "启动";
+            buttonWebsite.Label = "网站";
+            buttonRegister.Label = "注册";
+            togglebuttonMusic.Label = "音乐";
+        }
+    }
+
     protected void ApplyStyles()
     {
+        Opacity = 0.978;
         SetLabelForegroundToWhite(ref labelUsername);
         SetLabelForegroundToWhite(ref labelPassword);
         SetLabelForegroundToWhite(ref labelWelcome);
@@ -61,8 +104,9 @@ public partial class MainWindow : Window
         SetLabelForegroundToWhite(ref labelNotice);
         SetLabelForegroundToWhite(ref labelStatusIndicator);
         SetLabelForegroundToWhite(ref labelNoticeIndicator);
+        SetLabelForegroundToWhite(ref labelFullscreen);
+        SetLabelForegroundToWhite(ref labelVersion);
         spinbuttonMemory.SetRange(128, new PerformanceCounter("Mono Memory", "Total Physical Memory").RawValue / 1048576 - 1024);
-        checkbuttonFullScreen.ModifyFg(StateType.Normal, new Gdk.Color(255, 255, 255));
         labelWelcome.ModifyFont(new Pango.FontDescription
         {
             Size = Utility.GetScaledSize(65)

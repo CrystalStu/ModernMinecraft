@@ -9,8 +9,6 @@ Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "KMCCC.Shared", "ModernLaunc
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "ModernMinecraftShared", "ModernMinecraftShared\ModernMinecraftShared.shproj", "{2DEA8834-AC97-4617-AE5F-BD620DE32B45}"
 EndProject
-Project("{9344BDBB-3E7F-41FC-A0DD-8665D75EE146}") = "ModernMinecraftTranslations", "ModernMinecraftTranslations\ModernMinecraftTranslations.mdproj", "{CC0B0EE1-78C4-4B7A-9A52-B3EFF2561BDC}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x86 = Debug|x86
@@ -25,9 +23,9 @@ Global
 		{4270E717-21EE-46CF-A55A-B8AF33BBCB54}.Debug|x86.Build.0 = Debug|Any CPU
 		{4270E717-21EE-46CF-A55A-B8AF33BBCB54}.Release|x86.ActiveCfg = Release|Any CPU
 		{4270E717-21EE-46CF-A55A-B8AF33BBCB54}.Release|x86.Build.0 = Release|Any CPU
-		{CC0B0EE1-78C4-4B7A-9A52-B3EFF2561BDC}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{CC0B0EE1-78C4-4B7A-9A52-B3EFF2561BDC}.Debug|x86.Build.0 = Debug|Any CPU
-		{CC0B0EE1-78C4-4B7A-9A52-B3EFF2561BDC}.Release|x86.ActiveCfg = Release|Any CPU
-		{CC0B0EE1-78C4-4B7A-9A52-B3EFF2561BDC}.Release|x86.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(MonoDevelopProperties) = preSolution
+		Policies = $0
+		$0.StandardHeader = $1
 	EndGlobalSection
 EndGlobal

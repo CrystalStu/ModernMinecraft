@@ -86,10 +86,6 @@
       <Project>{4270E717-21EE-46CF-A55A-B8AF33BBCB54}</Project>
       <Name>KMCCC.Pro</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ModernMinecraftTranslations\ModernMinecraftTranslations.mdproj">
-      <Project>{CC0B0EE1-78C4-4B7A-9A52-B3EFF2561BDC}</Project>
-      <Name>ModernMinecraftTranslations</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
