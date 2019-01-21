@@ -77,6 +77,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Launch.cs" />
     <Compile Include="Update.cs" />
+    <Compile Include="AboutDialog.cs" />
+    <Compile Include="gtk-gui\ModernLauncher.AboutDialog.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\" />

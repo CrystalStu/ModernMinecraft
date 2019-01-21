@@ -1,14 +1,16 @@
-﻿#define REMOTE_ENABLE
+﻿#undef REMOTE_ENABLE
 #undef REMOTE_UPDATE
 #undef REMOTE_LAUNCHER_UPDATE
-#define REMOTE_NOTICE
+#undef REMOTE_NOTICE
 
 using System;
 using System.Diagnostics;
+using System.Linq;
 using System.Reflection;
 using System.Threading;
 using AutoUpdaterDotNET;
 using Gtk;
+using KMCCC.Launcher;
 using ModernLauncher;
 using ModernMinecraftShared;
 
@@ -25,6 +27,7 @@ public partial class MainWindow : Window
         Build();
         ApplyLanguage();
         ApplyStyles();
+        LoadVersions();
 #if REMOTE_UPDATE
         CheckGit();
 #endif
@@ -50,11 +53,11 @@ public partial class MainWindow : Window
         PlayMisc();
     }
 
-#region Frontend Handler
+    #region Frontend Handler
 
     protected void ApplyLanguage()
     {
-        if(Thread.CurrentThread.CurrentUICulture.Name.Contains("ja"))
+        if (Thread.CurrentThread.CurrentUICulture.Name.Contains("ja"))
         {
             Title = "Modern ランチャー";
             labelWelcome.Text = "こんにちは！";
@@ -113,6 +116,18 @@ public partial class MainWindow : Window
         });
     }
 
+    protected void LoadVersions()
+    {
+        LauncherCore core = LauncherCore.Create();
+        var versions = core.GetVersions().Cast<KMCCC.Launcher.Version>();
+        if (versions.Any())
+        {
+            foreach (KMCCC.Launcher.Version version in versions) comboboxVersion.AppendText(version.Id);
+            comboboxVersion.Model.IterNthChild(out TreeIter iter, 0);
+            comboboxVersion.SetActiveIter(iter);
+        }
+    }
+
     protected void SetLabelForegroundToWhite(ref Label widget)
     {
         widget.ModifyFg(StateType.Normal, new Gdk.Color(255, 255, 255));
@@ -124,9 +139,9 @@ public partial class MainWindow : Window
         backgroundMusicPlayer.PlayLooping();
     }
 
-#endregion
+    #endregion
 
-#region Event Handler
+    #region Event Handler
 
     protected void OnDeleteEvent(object sender, DeleteEventArgs a)
     {
@@ -146,6 +161,7 @@ public partial class MainWindow : Window
 
     protected void OnButtonLaunchClicked(object sender, EventArgs e)
     {
+        Launch.VersionName = comboboxVersion.ActiveText;
         if (Thread.CurrentThread.CurrentUICulture.Name.Contains("ja")) Launch.ChangeOption(Environment.CurrentDirectory, 1);
         else if (Thread.CurrentThread.CurrentUICulture.Name.Contains("zh")) Launch.ChangeOption(Environment.CurrentDirectory, 2);
         else Launch.ChangeOption(Environment.CurrentDirectory, 0);
@@ -155,7 +171,7 @@ public partial class MainWindow : Window
 
     protected void OnTogglebuttonMusicToggled(object sender, EventArgs e)
     {
-        switch(togglebuttonMusic.Active)
+        switch (togglebuttonMusic.Active)
         {
             case false:
                 backgroundMusicPlayer.Stop();
@@ -166,14 +182,20 @@ public partial class MainWindow : Window
         }
     }
 
-#endregion
+    protected void OnButtonAboutClicked(object sender, EventArgs e)
+    {
+        new ModernLauncher.AboutDialog().Show();
+    }
 
-#region Backend Handler
+    #endregion
+
+    #region Backend Handler
 
     protected void LauncherUpdate()
     {
         AutoUpdater.Mandatory = true;
         AutoUpdater.AppTitle = "Modern Launcher Update Window";
+        AutoUpdater.ReportErrors = true;
         AutoUpdater.Start(RemoteUrl + "/universal/UpdateInfo.xml");
     }
 
@@ -189,9 +211,10 @@ public partial class MainWindow : Window
 
     void Update_OnUpdate(UpdateEventArgs e)
     {
-        if(e.GetSet())
+        if (e.GetSet())
         {
-            switch(e.GetArg()) {
+            switch (e.GetArg())
+            {
                 case 0:
                     labelWelcome.Text = e.GetCont();
                     break;
@@ -234,9 +257,9 @@ public partial class MainWindow : Window
         Application.Quit();
     }
 
-#endregion
+    #endregion
 
-#region Outside Calling Handler
+    #region Outside Calling Handler
 
     protected void SetBigStatus(string status)
     {
@@ -248,5 +271,5 @@ public partial class MainWindow : Window
         labelStatus.Text = status;
     }
 
-#endregion
+    #endregion
 }

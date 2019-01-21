@@ -13,7 +13,7 @@ namespace ModernLauncher
     public static class Launch
     {
         const string ServerTongyiStr = "28f8f58a8a7f11e88feb525400b59b6a";
-        const string VersionName = "1.13";
+        public static string VersionName;
         const string ServerIP = "";
         const ushort ServerPort = 25565;
 
@@ -22,7 +22,7 @@ namespace ModernLauncher
             if (!File.Exists(rootPath + "/.minecraft/versions/" + VersionName + "/options.txt.tmpl")) return;
             if (!File.Exists(rootPath + "/.minecraft/versions/" + VersionName + "/options.txt"))
             {
-                Utility.MoveFile(rootPath + "/.minecraft/versions/" + VersionName + "/options.txt.tmpl", rootPath + "/.minecraft/versions/" + VersionName + "/options.txt");
+                Utility.CopyFile(rootPath + "/.minecraft/versions/" + VersionName + "/options.txt.tmpl", rootPath + "/.minecraft/versions/" + VersionName + "/options.txt");
             }
             string langStr;
             switch (lang)

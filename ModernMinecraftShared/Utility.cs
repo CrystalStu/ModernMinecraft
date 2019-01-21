@@ -27,6 +27,15 @@ namespace ModernMinecraftShared
             new FileInfo(from).MoveTo(to);
         }
 
+        public static void CopyFile(string from, string to)
+        {
+            if (!File.Exists(from)) return;
+            var unixFileInfo = new UnixFileInfo(from);
+            // set file permission to 644
+            unixFileInfo.FileAccessPermissions = FileAccessPermissions.UserRead | FileAccessPermissions.UserWrite | FileAccessPermissions.GroupRead | FileAccessPermissions.OtherRead;
+            new FileInfo(from).CopyTo(to);
+        }
+
         public static int GetScaledSize(int size)
         {
             return Convert.ToInt32(size * Pango.Scale.PangoScale);

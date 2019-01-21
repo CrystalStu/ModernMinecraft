@@ -18,7 +18,7 @@ namespace ModernLauncher
             {
                 Icon = Gdk.Pixbuf.LoadFromResource("ModernLauncher.Resources.Icon")
             };
-            win.SetSizeRequest(1200, 630);
+            win.SetSizeRequest(1024, 576);
             Gdk.Pixbuf.LoadFromResource("ModernLauncher.Resources.Background").RenderPixmapAndMask(out Gdk.Pixmap pixmapBackground, out Gdk.Pixmap pixmapMask, 255);
             win.Style.SetBgPixmap(StateType.Normal, pixmapBackground);
             win.Show();
