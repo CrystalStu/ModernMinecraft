@@ -1,4 +1,4 @@
-﻿#define ENABLE_TONGYI_AUTHENTICATION
+﻿// #define ENABLE_TONGYI_AUTHENTICATION
 
 using System;
 using System.IO;

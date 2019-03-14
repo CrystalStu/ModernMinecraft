@@ -81,5 +81,10 @@ namespace ModernMinecraftShared
                 return false;
             }
         }
+
+        public static bool GetIsWindows()
+        {
+            return Environment.OSVersion.Platform == PlatformID.WinCE || Environment.OSVersion.Platform == PlatformID.Win32S || Environment.OSVersion.Platform == PlatformID.Win32NT || Environment.OSVersion.Platform == PlatformID.Win32Windows;
+        }
     }
 }

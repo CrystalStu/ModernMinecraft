@@ -6,7 +6,7 @@
   <import>
     <widget-library name="../bin/Debug/LauncherU.exe" internal="true" />
   </import>
-  <widget class="Gtk.Window" id="MainWindow" design-size="1105 350">
+  <widget class="Gtk.Window" id="MainWindow" design-size="1105 370">
     <property name="MemberName" />
     <property name="Title" translatable="yes">Modern Launcher</property>
     <property name="WindowPosition">CenterAlways</property>

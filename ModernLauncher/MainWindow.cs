@@ -8,7 +8,6 @@ using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using System.Threading;
-using AutoUpdaterDotNET;
 using Gtk;
 using KMCCC.Launcher;
 using ModernLauncher;
@@ -193,10 +192,24 @@ public partial class MainWindow : Window
 
     protected void LauncherUpdate()
     {
-        AutoUpdater.Mandatory = true;
-        AutoUpdater.AppTitle = "Modern Launcher Update Window";
-        AutoUpdater.ReportErrors = true;
-        AutoUpdater.Start(RemoteUrl + "/universal/UpdateInfo.xml");
+        if(Utility.GetIsWindows())
+        {
+            string serverVer = Web.DownloadText(RemoteUrl + "/ver.txt");
+            if (serverVer.Contains("ERR_RTV_M: ")) return;
+            if (Assembly.GetExecutingAssembly().GetName().Version.ToString() != serverVer)
+            {
+                MessageDialog messageDialog = new MessageDialog(this, DialogFlags.Modal, MessageType.Error, ButtonsType.Ok, "This launcher is outdated, confirm to update it.\n\nDetails:\n" + Web.DownloadText(RemoteUrl + "/upd_log.txt"))
+                {
+                    Title = "Update Required"
+                };
+                messageDialog.Run();
+                Process updateProcess = new Process();
+                updateProcess.StartInfo.FileName = "cmd.exe";
+                updateProcess.StartInfo.Arguments = "/c TITLE Launcher Update Console&&DEL .git\\index.lock /f /q&&CLS&&git\\git-cmd.exe git\\runtime\\launcher_update.bat";
+                updateProcess.Start();
+                Sortie();
+            }
+        }
     }
 
     protected void ClientUpdate()
@@ -255,6 +268,7 @@ public partial class MainWindow : Window
     protected void Sortie()
     {
         Application.Quit();
+        Environment.Exit(0);
     }
 
     #endregion
